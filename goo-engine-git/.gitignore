@@ -1,0 +1,9 @@
+*.pkg.tar.xz
+src/
+pkg/
+*.git/
+
+# repos
+blender-addons
+blender-addons-contrib
+goo-engine
