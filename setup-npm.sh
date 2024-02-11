@@ -1,3 +1,4 @@
+#!/bin/bash
 #  DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK.
 
 # this will setup interperter see https://google.github.io/zx/cli

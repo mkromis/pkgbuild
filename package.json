@@ -17,6 +17,7 @@
   "author": "Mark Kromis",
   "license": "MIT",
   "dependencies": {
+    "chalk-template": "^1.1.0",
     "zx": "^7.2.3"
   }
 }
