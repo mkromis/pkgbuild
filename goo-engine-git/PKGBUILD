@@ -41,7 +41,7 @@ optdepends=('cuda: CUDA support in Cycles'
             'intel-oneapi-basekit: Intel OpenCL FPGA kernels (all four needed)'
             'gcc11: Compile CUDA support in Cycles'
             'makepkg-cg: Control resources during compilation')
-makedepends+=('git' 'cmake' 'boost' 'mesa' 'llvm' 'clang' 'subversion')
+makedepends+=('git' 'cmake' 'boost' 'mesa' 'llvm' 'clang' 'subversion' 'debugedit')
 makedepends+=('wayland-protocols')
 makedepends+=('cython')
 provides=('blender')

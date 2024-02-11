@@ -1,0 +1,22 @@
+{
+  "description": "Support file for build scripts",
+  "main": "index.mjs",
+  "type": "module",
+  "module": "esnext",
+  "target": "esnext",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://repo"
+  },
+  "keywords": [
+    "pkgbuild"
+  ],
+  "author": "Mark Kromis",
+  "license": "MIT",
+  "dependencies": {
+    "zx": "^7.2.3"
+  }
+}
