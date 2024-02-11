@@ -6,5 +6,6 @@
       "lib": ["ES2021"],
       "skipLibCheck": true,
       "outDir": "dist"
-    }
+    },
+    "include": ["*.ts"]
 }
