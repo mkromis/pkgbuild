@@ -3,6 +3,7 @@
 // https://google.github.io/zx/typescript
 
 import 'node:fs'
+import color from 'chalk-template'
 import 'zx/globals';
 
 // Change this to a directory of your choosing.
@@ -20,13 +21,17 @@ console.log(`Destination: ${repo}`)
 // maybe in the future if needed.
 const dirs = ScanDirs()
 await BuildPackages(dirs)
+BuildDone()
 
-// List of directories except the ones we don't want
+/**
+ * List of directories except the ones we don't want
+ * @returns list of directories
+ */
 function ScanDirs() : Array<string> {
   let result = new Array<string>()
   const skipFiles = ['.git', 'node_modules']
 
-  fs.readdirSync('.').forEach(file => {
+  fs.readdirSync('.').forEach((file: string) => {
     // Skip invalid dirs,
     if (skipFiles.includes(file)) {return}
 
@@ -41,12 +46,16 @@ function ScanDirs() : Array<string> {
   return result;
 }
 
+/**
+ * Builds each package given the array of directories
+ * @param dirs directories as string to parse
+ */
 function BuildPackages(dirs: Array<string>) {
   // This is a list of dirs to process
   dirs.forEach( dir => {
     // We would do a check to see if we are needing a 
     // chroot build or just a makepkg build.
-    // Assuming just a chroot build for now.
+    // Assuming just a makepkg build for now.
     MakepkgBuild(dir);
   })
 }
@@ -70,32 +79,49 @@ function BuildPackages(dirs: Array<string>) {
 
 // cd /tmp/tempbuild/
 
+/**
+ * Tries to build package in a chroot environment
+ * @param path Directory of package to build
+ */
 async function ChrootBuild(path: string) {
-  await $`tput setaf 2`
-  echo `#############################################################################################`
-  echo `#########        Let us build the package in CHROOT "${path}`
-  echo `#############################################################################################`
-  await $`tput sgr0`
+  echo(color`{green
+#############################################################################################
+#########        Let us build the package in CHROOT ${path}
+#############################################################################################
+  }`)
   //CHROOT=$HOME/Documents/chroot-data
   await $`arch-nspawn ${path}/root pacman -Syu`
   await $`makechrootpkg -c -r ${path}`
 }
 
+/**
+ * Basic directory build via makepkg
+ * @param path Directory to build package
+ */
 async function MakepkgBuild(path: string) {
-  await $`tput setaf 3`
-  echo `#############################################################################################`
-  echo `#########        Let us build the package with MAKEPKG ${path}`
-  echo `#############################################################################################`
-  await $`tput sgr0`
+  echo(color`{yellow
+#############################################################################################
+#########        Let us build the package with MAKEPKG
+#########        {blue ${path}}
+#############################################################################################
+  }`)
   cd (path)
-  await $`makepkg -sc`
+  //await $`makepkg -sc`
   MovePackages(path)
+  cd (root)
 }
 
+/**
+ * Moves packages to destination folder
+ * @param path Path of directory where packages exist
+ */
 async function MovePackages(path: string) {
-  echo `#############################################################################################`
-  echo `#########        Moving created files to ${repo}`
-  echo `#############################################################################################`
+  echo(color`{green
+#############################################################################################
+#########        Moving created files to...
+#########        {blue ${repo}}
+#############################################################################################
+  }`)
   await $`mv ${path}/*pkg.tar.zst ${repo}`
 }
 
@@ -114,10 +140,13 @@ async function MovePackages(path: string) {
 //   rm $pwdpath/*.tar.gz
 // fi
 
+/**
+ * Done banner
+ */
 async function BuildDone() {
-  await $`tput setaf 10`
-  echo `#############################################################################################`
-  echo `###################                       build done                   ######################`
-  echo `#############################################################################################`
-  await $`tput sgr0`
+  echo(color`{green
+#############################################################################################
+###################                       build done                   ######################
+#############################################################################################
+  }`)
 }
