@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://repo"
+    "url": "https://github.com/mkromis/pkgbuild.git"
   },
   "keywords": [
     "pkgbuild"

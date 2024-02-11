@@ -88,7 +88,7 @@ async function MakepkgBuild(path: string) {
   echo `#############################################################################################`
   await $`tput sgr0`
   cd (path)
-  //await $`makepkg -sc`
+  await $`makepkg -sc`
   MovePackages(path)
 }
 
