@@ -3,7 +3,7 @@
 // https://google.github.io/zx/typescript
 
 import 'node:fs'
-import color from 'chalk-template'
+import ct from 'chalk-template'
 import 'zx/globals';
 
 // Change this to a directory of your choosing.
@@ -11,7 +11,7 @@ import 'zx/globals';
 const root = path.resolve('.');
 const repo=path.resolve("../kitsune_repo/x86_64")
 console.log(`Root: ${root}`)
-console.log(`Destination: ${repo}`)
+console.log(`Dest: ${repo}`)
 
 // Ideally there will be 2 options for compiling
 // 1. chroot"   (Default)
@@ -84,9 +84,10 @@ function BuildPackages(dirs: Array<string>) {
  * @param path Directory of package to build
  */
 async function ChrootBuild(path: string) {
-  echo(color`{green
+  echo(ct`{green
 #############################################################################################
-#########        Let us build the package in CHROOT ${path}
+#########        Let us build the package in CHROOT
+#########        {blue ${path}}
 #############################################################################################
   }`)
   //CHROOT=$HOME/Documents/chroot-data
@@ -99,14 +100,14 @@ async function ChrootBuild(path: string) {
  * @param path Directory to build package
  */
 async function MakepkgBuild(path: string) {
-  echo(color`{yellow
+  echo(ct`{yellow
 #############################################################################################
 #########        Let us build the package with MAKEPKG
 #########        {blue ${path}}
 #############################################################################################
   }`)
   cd (path)
-  //await $`makepkg -sc`
+  await $`makepkg -sc`
   MovePackages(path)
   cd (root)
 }
@@ -116,7 +117,7 @@ async function MakepkgBuild(path: string) {
  * @param path Path of directory where packages exist
  */
 async function MovePackages(path: string) {
-  echo(color`{green
+  echo(ct`{green
 #############################################################################################
 #########        Moving created files to...
 #########        {blue ${repo}}
@@ -144,7 +145,7 @@ async function MovePackages(path: string) {
  * Done banner
  */
 async function BuildDone() {
-  echo(color`{green
+  echo(ct`{greenBright
 #############################################################################################
 ###################                       build done                   ######################
 #############################################################################################
