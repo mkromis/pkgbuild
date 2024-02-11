@@ -1,0 +1,13 @@
+diff --git a/source/creator/CMakeLists.txt b/source/creator/CMakeLists.txt
+index 66943111380..a0452d8a2b7 100644
+--- a/source/creator/CMakeLists.txt
++++ b/source/creator/CMakeLists.txt
+@@ -816,7 +816,7 @@ if(UNIX AND NOT APPLE)
+           set(_suffix "dist-packages")
+         endif()
+         install(
+-          DIRECTORY ${USD_LIBRARY_DIR}/python/
++          DIRECTORY ${USD_LIBRARY_DIR}/python${PYTHON_VERSION}
+           DESTINATION ${TARGETDIR_VER}/python/${_target_LIB}/python${PYTHON_VERSION}/${_suffix}
+           PATTERN ".svn" EXCLUDE
+           PATTERN "__pycache__" EXCLUDE           # * any cache *
